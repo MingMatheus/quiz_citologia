@@ -19,7 +19,7 @@ public class ConnectionFactory
   final private String port = "13707";
   final private String db = "defaultdb";
   final private String user = "avnadmin";
-  final private String password = "AVNS_RezEeicVTAwVu5NrmMp";
+  final private String password = ""; // Removi a senha do db do Aven daqui pois o github não estava deixado eu fazer o push
   
   public Connection obterConexao()
   {
