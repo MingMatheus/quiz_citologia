@@ -9,7 +9,8 @@ package telas;
  * @author Matheus
  */
 public class OpcoesAdministradorTela extends javax.swing.JFrame {
-
+  private int idUsuarioLogado;
+  
   /**
    * Creates new form OpcoesAdministradorTela
    */
@@ -17,7 +18,21 @@ public class OpcoesAdministradorTela extends javax.swing.JFrame {
     initComponents();
     setLocationRelativeTo(null);
   }
+  
+  public OpcoesAdministradorTela(int idUsuarioLogado) {
+    initComponents();
+    setLocationRelativeTo(null);
+    this.idUsuarioLogado = idUsuarioLogado;
+  }
 
+  public int getIdUsuarioLogado() {
+    return idUsuarioLogado;
+  }
+
+  public void setIdUsuarioLogado(int idUsuarioLogado) {
+    this.idUsuarioLogado = idUsuarioLogado;
+  }
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +78,11 @@ public class OpcoesAdministradorTela extends javax.swing.JFrame {
     removerPerguntasButton.setMaximumSize(new java.awt.Dimension(320, 100));
     removerPerguntasButton.setMinimumSize(new java.awt.Dimension(320, 100));
     removerPerguntasButton.setPreferredSize(new java.awt.Dimension(320, 100));
+    removerPerguntasButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        removerPerguntasButtonActionPerformed(evt);
+      }
+    });
 
     cadastrarUsuarioButton.setBackground(new java.awt.Color(100, 100, 100));
     cadastrarUsuarioButton.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
@@ -147,17 +167,24 @@ public class OpcoesAdministradorTela extends javax.swing.JFrame {
 
   private void adicionarPerguntasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarPerguntasButtonActionPerformed
     // TODO add your handling code here:
-    var tap = new AdicionarPerguntasTela();
+    var tap = new AdicionarPerguntasTela(this.idUsuarioLogado);
     tap.setVisible(true);
     this.dispose();
   }//GEN-LAST:event_adicionarPerguntasButtonActionPerformed
 
   private void cadastrarUsuarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarUsuarioButtonActionPerformed
     // TODO add your handling code here:
-    var tcu = new CadastroDeUsuariosTela();
+    var tcu = new CadastroDeUsuariosTela(this.idUsuarioLogado);
     tcu.setVisible(true);
     this.dispose();
   }//GEN-LAST:event_cadastrarUsuarioButtonActionPerformed
+
+  private void removerPerguntasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerPerguntasButtonActionPerformed
+    // TODO add your handling code here:
+    var trp = new RemoverPerguntasTela(this.idUsuarioLogado);
+    trp.setVisible(true);
+    this.dispose();
+  }//GEN-LAST:event_removerPerguntasButtonActionPerformed
 
   /**
    * @param args the command line arguments

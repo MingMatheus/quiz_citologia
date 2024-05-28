@@ -9,7 +9,6 @@ package telas;
  * @author Matheus
  */
 public class InicialTela extends javax.swing.JFrame {
-  private int idUsuarioLogado;
 
   /**
    * Creates new form TelaTeste
@@ -17,20 +16,6 @@ public class InicialTela extends javax.swing.JFrame {
   public InicialTela() {
     initComponents();
     setLocationRelativeTo(null);
-  }
-  
-  public InicialTela(int idUsuarioLogado) {
-    initComponents();
-    setLocationRelativeTo(null);
-    this.idUsuarioLogado = idUsuarioLogado;
-  }
-
-  public int getIdUsuarioLogado() {
-    return idUsuarioLogado;
-  }
-
-  public void setIdUsuarioLogado(int idUsuarioLogado) {
-    this.idUsuarioLogado = idUsuarioLogado;
   }
 
   /**

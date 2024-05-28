@@ -14,6 +14,7 @@ import modelo.Usuario;
  * @author Matheus
  */
 public class CadastroDeUsuariosTela extends javax.swing.JFrame {
+  private int idUsuarioLogado;
 
   /**
    * Creates new form CadastroDeUsuariosTela
@@ -22,7 +23,21 @@ public class CadastroDeUsuariosTela extends javax.swing.JFrame {
     initComponents();
     setLocationRelativeTo(null);
   }
+  
+  public CadastroDeUsuariosTela(int idUsuarioLogado) {
+    initComponents();
+    setLocationRelativeTo(null);
+    this.idUsuarioLogado = idUsuarioLogado;
+  }
 
+  public int getIdUsuarioLogado() {
+    return idUsuarioLogado;
+  }
+
+  public void setIdUsuarioLogado(int idUsuarioLogado) {
+    this.idUsuarioLogado = idUsuarioLogado;
+  }
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -236,7 +251,7 @@ public class CadastroDeUsuariosTela extends javax.swing.JFrame {
   
   private void voltarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarButtonActionPerformed
     // TODO add your handling code here:
-    var toa = new OpcoesAdministradorTela();
+    var toa = new OpcoesAdministradorTela(this.idUsuarioLogado);
     toa.setVisible(true);
     this.dispose();
   }//GEN-LAST:event_voltarButtonActionPerformed

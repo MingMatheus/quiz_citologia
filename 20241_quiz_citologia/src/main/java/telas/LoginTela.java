@@ -201,15 +201,15 @@ public class LoginTela extends javax.swing.JFrame {
         var u = criarUsuarioParaLogin();
         if(dao.existe(u))
         {
-          if(dao.isAdministrador(u))
+          if(dao.isAdministrador(u, false))
           {
-            var toa = new OpcoesAdministradorTela();
+            var toa = new OpcoesAdministradorTela(dao.idByUsernamePassword(u));
             toa.setVisible(true);
             this.dispose();
           }
           else
           {
-            var top = new OpcoesProfessorTela();
+            var top = new OpcoesProfessorTela(dao.idByUsernamePassword(u));
             top.setVisible(true);
             this.dispose();
           }

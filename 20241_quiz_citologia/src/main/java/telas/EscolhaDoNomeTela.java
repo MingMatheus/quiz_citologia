@@ -9,7 +9,6 @@ package telas;
  * @author Matheus
  */
 public class EscolhaDoNomeTela extends javax.swing.JFrame {
-  private int idUsuarioLogado;
 
   /**
    * Creates new form EscolhaDoNomeTela
@@ -17,20 +16,6 @@ public class EscolhaDoNomeTela extends javax.swing.JFrame {
   public EscolhaDoNomeTela() {
     initComponents();
     setLocationRelativeTo(null);
-  }
-  
-  public EscolhaDoNomeTela(int idUsuarioLogado) {
-    initComponents();
-    setLocationRelativeTo(null);
-    this.idUsuarioLogado = idUsuarioLogado;
-  }
-
-  public int getIdUsuarioLogado() {
-    return idUsuarioLogado;
-  }
-
-  public void setIdUsuarioLogado(int idUsuarioLogado) {
-    this.idUsuarioLogado = idUsuarioLogado;
   }
 
   /**

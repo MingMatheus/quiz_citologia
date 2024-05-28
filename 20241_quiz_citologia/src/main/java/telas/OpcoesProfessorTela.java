@@ -9,6 +9,7 @@ package telas;
  * @author Matheus
  */
 public class OpcoesProfessorTela extends javax.swing.JFrame {
+  private int idUsuarioLogado;
 
   /**
    * Creates new form OpcoesProfessorTela
@@ -17,7 +18,21 @@ public class OpcoesProfessorTela extends javax.swing.JFrame {
     initComponents();
     setLocationRelativeTo(null);
   }
+  
+  public OpcoesProfessorTela(int idUsuarioLogado) {
+    initComponents();
+    setLocationRelativeTo(null);
+    this.idUsuarioLogado = idUsuarioLogado;
+  }
 
+  public int getIdUsuarioLogado() {
+    return idUsuarioLogado;
+  }
+
+  public void setIdUsuarioLogado(int idUsuarioLogado) {
+    this.idUsuarioLogado = idUsuarioLogado;
+  }
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,7 +132,7 @@ public class OpcoesProfessorTela extends javax.swing.JFrame {
 
   private void adicionarPerguntasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarPerguntasButtonActionPerformed
     // TODO add your handling code here:
-    var tap = new AdicionarPerguntasTela();
+    var tap = new AdicionarPerguntasTela(this.idUsuarioLogado);
     tap.setVisible(true);
     this.dispose();
   }//GEN-LAST:event_adicionarPerguntasButtonActionPerformed
