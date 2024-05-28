@@ -45,8 +45,23 @@ public class AlternativaDAO
     }
   }
   
-  public void pegarIds(int [] ids, String a1, String a2, String a3, String a4)
+  public int idByText(String texto) throws Exception
   {
+    String sql = "SELECT idAlternativa FROM alternativa WHERE textoAlternativa = ?";
     
+    try(
+      var conexao = new ConnectionFactory().obterConexao();
+      var ps = conexao.prepareStatement(sql);
+    ){
+      ps.setString(1, texto);
+      
+      try(
+        var rs = ps.executeQuery()
+      ){
+        rs.next();
+        int id = rs.getInt("idAlternativa");
+        return id;
+      }
+    }
   }
 }

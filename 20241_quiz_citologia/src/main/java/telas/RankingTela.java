@@ -14,13 +14,28 @@ import javax.swing.table.JTableHeader;
  * @author 22.00096-8
  */
 public class RankingTela extends javax.swing.JFrame {
-
+  private int idUsuarioLogado;
+  
   /**
    * Creates new form RankingTela
    */
   public RankingTela() {
     initComponents();
     setLocationRelativeTo(null);
+  }
+  
+  public RankingTela(int idUsuarioLogado) {
+    initComponents();
+    setLocationRelativeTo(null);
+    this.idUsuarioLogado = idUsuarioLogado;
+  }
+
+  public int getIdUsuarioLogado() {
+    return idUsuarioLogado;
+  }
+
+  public void setIdUsuarioLogado(int idUsuarioLogado) {
+    this.idUsuarioLogado = idUsuarioLogado;
   }
 
   /**

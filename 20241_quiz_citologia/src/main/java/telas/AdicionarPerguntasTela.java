@@ -5,8 +5,10 @@
 package telas;
 
 import db.AlternativaDAO;
+import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JOptionPane;
 import modelo.Alternativa;
+import modelo.Pergunta;
 
 /**
  *
@@ -211,23 +213,23 @@ public class AdicionarPerguntasTela extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void pegarAlternativas(String [] alternativas)
+  private void pegarAlternativas(Alternativa [] alternativas)
   {
-    alternativas[0] = respostaCertaTextField.getText();
-    alternativas[1] = respostaErrada1TextField.getText();
-    alternativas[2] = respostaErrada2TextField.getText();
-    alternativas[3] = respostaErrada3TextField.getText();
+    alternativas[0] = new Alternativa(0, respostaCertaTextField.getText());
+    alternativas[1] = new Alternativa(0, respostaErrada1TextField.getText());
+    alternativas[2] = new Alternativa(0, respostaErrada2TextField.getText());
+    alternativas[3] = new Alternativa(0, respostaErrada3TextField.getText());
   }
   
   private boolean preencheuTodosOsCampos()
   {
-    var alts = new String [4];
+    var alts = new Alternativa [4];
     pegarAlternativas(alts);
     
-    String certa = alts[0];
-    String errada1 = alts[1];
-    String errada2 = alts[2];
-    String errada3 = alts[3];
+    String certa = alts[0].getTexto();
+    String errada1 = alts[1].getTexto();
+    String errada2 = alts[2].getTexto();
+    String errada3 = alts[3].getTexto();
     String pergunta = perguntaTextField.getText();
     
     return !(certa.isEmpty() || errada1.isEmpty() || errada2.isEmpty() || errada3.isEmpty() || pergunta.isEmpty());
@@ -239,31 +241,40 @@ public class AdicionarPerguntasTela extends javax.swing.JFrame {
   }//GEN-LAST:event_voltarButtonActionPerformed
 
   private void cadastrarPerguntaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarPerguntaButtonActionPerformed
-    // TODO add your handling code here:
-    
     try
     {
       if(preencheuTodosOsCampos())
       {
-        var alts = new String [4];
+        String enunciado = perguntaTextField.getText();
+        var alts = new Alternativa [4];
         pegarAlternativas(alts);
-    
-        var ac = new Alternativa(0, alts[0]);
-        var ae1 = new Alternativa(0, alts[1]);
-        var ae2 = new Alternativa(0, alts[2]);
-        var ae3 = new Alternativa(0, alts[3]);
         
         var dao = new AlternativaDAO();
+
+        for (Alternativa alt : alts)
+        {
+          try
+          {
+            dao.cadastrar(alt);
+          }
+          catch(SQLIntegrityConstraintViolationException e)
+          {
+            // Faz nada
+          }
+          catch(Exception e)
+          {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar alternativa");
+          }
+        }
         
-        if(!(dao.existe(ac)))
-          dao.cadastrar(ac);
-        if(!(dao.existe(ae1)))
-          dao.cadastrar(ae1);
-        if(!(dao.existe(ae2)))
-          dao.cadastrar(ae2);
-        if(!(dao.existe(ae3)))
-          dao.cadastrar(ae3);
+        var ids = new int [4];
+        for (int i = 0; i < 4; i++)
+        {
+          ids[i] = dao.idByText(alts[i].getTexto());
+        }
         
+        // var p = new Pergunta(enunciado, ids[0], ids[1], ids[2], ids[3], );
         
       }
       else
@@ -273,7 +284,8 @@ public class AdicionarPerguntasTela extends javax.swing.JFrame {
     }
     catch(Exception e)
     {
-      
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Tente novamente mais tarde");
     }
     
     // pegar cada alternativa e checar se já está no banco de dados, se sim pega o id, se não, cadastrar

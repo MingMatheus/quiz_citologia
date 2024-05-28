@@ -4,8 +4,8 @@
 
 package br.maua._quiz_citologia;
 
-import db.UsuarioDAO;
-import modelo.Usuario;
+import db.AlternativaDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,13 +15,9 @@ public class App
 {
   public static void main(String[] args) throws Exception
   {
-    String login = "asdasd";
-    String senha = "prasdadsof";
-    
-    var dao = new UsuarioDAO();
-    var u = new Usuario(0, null, login, senha, false);
-    boolean isAdmin = dao.existe(u);
-    
-    System.out.printf("Esse usuario existe?\nR: %s\n", isAdmin ? "sim" : "nao");
+    var dao = new AlternativaDAO();
+    String texto = JOptionPane.showInputDialog("Digite o texto da alternativa que deseja procurar");
+    var resposta = String.format("ID da alternativa: %d\n", dao.idByText(texto));
+    JOptionPane.showMessageDialog(null, resposta);
   }
 }
