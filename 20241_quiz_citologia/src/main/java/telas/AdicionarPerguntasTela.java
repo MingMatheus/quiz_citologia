@@ -4,6 +4,10 @@
  */
 package telas;
 
+import db.AlternativaDAO;
+import javax.swing.JOptionPane;
+import modelo.Alternativa;
+
 /**
  *
  * @author Matheus
@@ -102,6 +106,11 @@ public class AdicionarPerguntasTela extends javax.swing.JFrame {
     cadastrarPerguntaButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
     cadastrarPerguntaButton.setForeground(new java.awt.Color(255, 255, 255));
     cadastrarPerguntaButton.setText("Cadastrar pergunta");
+    cadastrarPerguntaButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        cadastrarPerguntaButtonActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout retanguloBaseAdicionarPerguntasPanelLayout = new javax.swing.GroupLayout(retanguloBaseAdicionarPerguntasPanel);
     retanguloBaseAdicionarPerguntasPanel.setLayout(retanguloBaseAdicionarPerguntasPanelLayout);
@@ -202,10 +211,75 @@ public class AdicionarPerguntasTela extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void pegarAlternativas(String [] alternativas)
+  {
+    alternativas[0] = respostaCertaTextField.getText();
+    alternativas[1] = respostaErrada1TextField.getText();
+    alternativas[2] = respostaErrada2TextField.getText();
+    alternativas[3] = respostaErrada3TextField.getText();
+  }
+  
+  private boolean preencheuTodosOsCampos()
+  {
+    var alts = new String [4];
+    pegarAlternativas(alts);
+    
+    String certa = alts[0];
+    String errada1 = alts[1];
+    String errada2 = alts[2];
+    String errada3 = alts[3];
+    String pergunta = perguntaTextField.getText();
+    
+    return !(certa.isEmpty() || errada1.isEmpty() || errada2.isEmpty() || errada3.isEmpty() || pergunta.isEmpty());
+  }
+  
   private void voltarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarButtonActionPerformed
     // TODO add your handling code here:
     
   }//GEN-LAST:event_voltarButtonActionPerformed
+
+  private void cadastrarPerguntaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarPerguntaButtonActionPerformed
+    // TODO add your handling code here:
+    
+    try
+    {
+      if(preencheuTodosOsCampos())
+      {
+        var alts = new String [4];
+        pegarAlternativas(alts);
+    
+        var ac = new Alternativa(0, alts[0]);
+        var ae1 = new Alternativa(0, alts[1]);
+        var ae2 = new Alternativa(0, alts[2]);
+        var ae3 = new Alternativa(0, alts[3]);
+        
+        var dao = new AlternativaDAO();
+        
+        if(!(dao.existe(ac)))
+          dao.cadastrar(ac);
+        if(!(dao.existe(ae1)))
+          dao.cadastrar(ae1);
+        if(!(dao.existe(ae2)))
+          dao.cadastrar(ae2);
+        if(!(dao.existe(ae3)))
+          dao.cadastrar(ae3);
+        
+        
+      }
+      else
+      {
+        JOptionPane.showMessageDialog(null, "Preencha todos os campos", "Erro", 0);
+      }
+    }
+    catch(Exception e)
+    {
+      
+    }
+    
+    // pegar cada alternativa e checar se já está no banco de dados, se sim pega o id, se não, cadastrar
+    
+    // pegar a pergunta e cadastrar ela, ja colocando suas alternativas e seu criador
+  }//GEN-LAST:event_cadastrarPerguntaButtonActionPerformed
 
   /**
    * @param args the command line arguments

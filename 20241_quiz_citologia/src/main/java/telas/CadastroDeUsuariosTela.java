@@ -211,7 +211,7 @@ public class CadastroDeUsuariosTela extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private boolean preencheuTodosOsCamposCadastro()
+  private boolean preencheuTodosOsCampos()
   {
     String nome = nomeTextField.getText();
     String usuario = usuarioTextField.getText();
@@ -242,11 +242,9 @@ public class CadastroDeUsuariosTela extends javax.swing.JFrame {
   }//GEN-LAST:event_voltarButtonActionPerformed
 
   private void cadastrarUsuarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarUsuarioButtonActionPerformed
-    boolean preencheuTodosOsCampos = preencheuTodosOsCamposCadastro();
-    
     try
     {
-      if(preencheuTodosOsCampos)
+      if(preencheuTodosOsCampos())
       {
         var dao = new UsuarioDAO();
         var u = criarUsuarioParaCadastro();

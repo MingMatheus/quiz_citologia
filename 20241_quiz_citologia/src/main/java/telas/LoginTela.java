@@ -168,7 +168,7 @@ public class LoginTela extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private boolean preencheuTodosOsCamposLogin()
+  private boolean preencheuTodosOsCampos()
   {
     String login = loginTextField.getText();
     String senha = new String(senhaPasswordField.getPassword());
@@ -193,11 +193,9 @@ public class LoginTela extends javax.swing.JFrame {
   }//GEN-LAST:event_voltarButtonActionPerformed
 
   private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
-    boolean preencheuTodosOsCampos = preencheuTodosOsCamposLogin();
-    
     try
     {
-      if(preencheuTodosOsCampos)
+      if(preencheuTodosOsCampos())
       {
         var dao = new UsuarioDAO();
         var u = criarUsuarioParaLogin();
