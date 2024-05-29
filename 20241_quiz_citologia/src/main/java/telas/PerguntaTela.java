@@ -4,6 +4,7 @@
  */
 package telas;
 
+import db.JogadorDAO;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.JButton;
@@ -241,21 +242,32 @@ public class PerguntaTela extends javax.swing.JFrame {
   {
     numeroDaPergunta++;
     
-    if(numeroDaPergunta > MAX_PERGUNTAS_POR_PARTIDA)
+    try
     {
-      var tpf = new PontuacaoFinalTela(jogador);
-      tpf.setVisible(true);
-      this.dispose();
-    }
-    else
-    {
-      // Continua em outra tela
-      var tp = new PerguntaTela(jogador, numeroDaPergunta, perguntas);
-      tp.setVisible(true);
-      this.dispose();
+      if(numeroDaPergunta > MAX_PERGUNTAS_POR_PARTIDA)
+      {
+        var dao = new JogadorDAO();
+        dao.cadastrar(jogador);
+        var tpf = new PontuacaoFinalTela(jogador);
+        tpf.setVisible(true);
+        this.dispose();
+      }
+      else
+      {
+        // Continua em outra tela
+        var tp = new PerguntaTela(jogador, numeroDaPergunta, perguntas);
+        tp.setVisible(true);
+        this.dispose();
 
-      // Continua na mesma tela
-      // preencheCampos();
+        // Continua na mesma tela
+        // preencheCampos();
+      }
+    }
+    catch(Exception e)
+    {
+      numeroDaPergunta--;
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Tente novamente mais tarde");
     }
   }
   
@@ -266,8 +278,8 @@ public class PerguntaTela extends javax.swing.JFrame {
     
     if(escolha.equals(resposta))
     {
-      JOptionPane.showMessageDialog(null, "Boa! Você acertou a resposta\n+1 ponto pra você", "Acertou!", 1);
       jogador.ganhaUmPonto();
+      JOptionPane.showMessageDialog(null, "Boa! Você acertou a resposta\n+1 ponto pra você", "Acertou!", 1);
     }
     else
     {
