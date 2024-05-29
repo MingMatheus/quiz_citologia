@@ -231,18 +231,21 @@ public class AdicionarPerguntasTela extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void pegarAlternativas(Alternativa [] alternativas)
+  private Alternativa [] pegarAlternativas()
   {
+    var alternativas = new Alternativa [4];
+    
     alternativas[0] = new Alternativa(0, respostaCertaTextField.getText());
     alternativas[1] = new Alternativa(0, respostaErrada1TextField.getText());
     alternativas[2] = new Alternativa(0, respostaErrada2TextField.getText());
     alternativas[3] = new Alternativa(0, respostaErrada3TextField.getText());
+    
+    return alternativas;
   }
   
   private boolean preencheuTodosOsCampos()
   {
-    var alts = new Alternativa [4];
-    pegarAlternativas(alts);
+    var alts = pegarAlternativas();
     
     String certa = alts[0].getTexto();
     String errada1 = alts[1].getTexto();
@@ -287,8 +290,7 @@ public class AdicionarPerguntasTela extends javax.swing.JFrame {
       {
         // Coleta os dados da pergunta
         String enunciado = perguntaTextField.getText();
-        var alts = new Alternativa [4];
-        pegarAlternativas(alts);
+        var alts = pegarAlternativas();
         
         var dao = new AlternativaDAO();
 

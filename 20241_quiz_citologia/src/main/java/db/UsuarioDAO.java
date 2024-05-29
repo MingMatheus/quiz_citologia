@@ -94,7 +94,7 @@ public class UsuarioDAO
       var conexao = new ConnectionFactory().obterConexao();
       var ps = conexao.prepareStatement(sql);
     ){
-      ps.setString(1, u.getNomeDaPessoa());
+      ps.setString(1, u.getNomeDeUsuario());
       ps.setString(2, u.getSenha());
       
       try(

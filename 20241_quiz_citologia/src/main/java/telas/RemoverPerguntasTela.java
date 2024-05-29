@@ -4,6 +4,12 @@
  */
 package telas;
 
+import db.AlternativaDAO;
+import db.PerguntaDAO;
+import modelo.Pergunta;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 22.00096-8
@@ -16,11 +22,13 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
    */
   public RemoverPerguntasTela() {
     initComponents();
+    preencheComboBoxComPerguntas();
     setLocationRelativeTo(null);
   }
   
   public RemoverPerguntasTela(int idUsuarioLogado) {
     initComponents();
+    preencheComboBoxComPerguntas();
     setLocationRelativeTo(null);
     this.idUsuarioLogado = idUsuarioLogado;
   }
@@ -131,11 +139,15 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
       }
     });
 
-    escolhaDaPerguntaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
     escolhaDaPerguntaComboBox.setLightWeightPopupEnabled(false);
     escolhaDaPerguntaComboBox.setMaximumSize(new java.awt.Dimension(400, 40));
     escolhaDaPerguntaComboBox.setMinimumSize(new java.awt.Dimension(400, 40));
     escolhaDaPerguntaComboBox.setPreferredSize(new java.awt.Dimension(400, 40));
+    escolhaDaPerguntaComboBox.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        escolhaDaPerguntaComboBoxActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout retanguloBaseAdicionarPerguntasPanelLayout = new javax.swing.GroupLayout(retanguloBaseAdicionarPerguntasPanel);
     retanguloBaseAdicionarPerguntasPanel.setLayout(retanguloBaseAdicionarPerguntasPanelLayout);
@@ -243,12 +255,64 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
 
   private void preencheComboBoxComPerguntas()
   {
-    // Método que preenche o combo box dessa tela com as perguntas
-    // do banco de dados para que o usuário possa escolher qual quer remover
+    try
+    {
+      var dao = new PerguntaDAO();
+      var perguntas = dao.obterPerguntas();
+      escolhaDaPerguntaComboBox.setModel(new DefaultComboBoxModel<>(perguntas));
+    }
+    catch(Exception e)
+    {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Perguntas indisponíveis, tente novamente mais tarde");
+    }
+  }
+  
+  private void limpaCampos()
+  {
+    perguntaTextField.setText("");
+    respostaCertaTextField.setText("");
+    respostaErrada1TextField.setText("");
+    respostaErrada2TextField.setText("");
+    respostaErrada3TextField.setText("");
   }
   
   private void removerPerguntaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerPerguntaButtonActionPerformed
-    // código da remoção de pergunta
+    var p = (Pergunta) escolhaDaPerguntaComboBox.getSelectedItem();
+    if(p == null)
+    {
+      JOptionPane.showMessageDialog(null, "Selecione um pergunta primeiro", "Erro", 0);
+    }
+    else
+    {  
+      try
+      {
+        String[] opcoes = {"Sim", "Não", "Cancelar"};
+        int op = JOptionPane.showOptionDialog(
+                  null,
+                  "Você deseja mesmo remover essa pergunta?",
+                  "Confirmação",
+                  JOptionPane.YES_NO_CANCEL_OPTION,
+                  JOptionPane.QUESTION_MESSAGE,
+                  null,
+                  opcoes,
+                  opcoes[0]);
+
+        if(op == JOptionPane.YES_OPTION)
+        {
+          var dao = new PerguntaDAO();
+          dao.remover(p);
+          preencheComboBoxComPerguntas();
+          limpaCampos();
+          JOptionPane.showMessageDialog(null, "Pergunta removida com sucesso", "Remoção bem sucedida", 1);
+        }
+      }
+      catch(Exception e)
+      {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Tente novamente mais tarde");
+      }
+    }
   }//GEN-LAST:event_removerPerguntaButtonActionPerformed
 
   private void voltarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarButtonActionPerformed
@@ -257,6 +321,31 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
     toa.setVisible(true);
     this.dispose();
   }//GEN-LAST:event_voltarButtonActionPerformed
+
+  private void escolhaDaPerguntaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escolhaDaPerguntaComboBoxActionPerformed
+    try
+    {
+      var p = (Pergunta) escolhaDaPerguntaComboBox.getSelectedItem();
+      var dao = new AlternativaDAO();
+    
+      String enunciado = p.getEnunciado();
+      String altCerta = dao.textById(p.getIdAltCerta());
+      String altErrada1 = dao.textById(p.getIdAltErrada1());
+      String altErrada2 = dao.textById(p.getIdAltErrada2());
+      String altErrada3 = dao.textById(p.getIdAltErrada3());
+      
+      perguntaTextField.setText(enunciado);
+      respostaCertaTextField.setText(altCerta);
+      respostaErrada1TextField.setText(altErrada1);
+      respostaErrada2TextField.setText(altErrada2);
+      respostaErrada3TextField.setText(altErrada3);
+    }
+    catch(Exception e)
+    {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Tente novamente mais tarde");
+    }
+  }//GEN-LAST:event_escolhaDaPerguntaComboBoxActionPerformed
 
   /**
    * @param args the command line arguments
@@ -295,7 +384,7 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel adicionarPerguntasLabel;
-  private javax.swing.JComboBox<String> escolhaDaPerguntaComboBox;
+  private javax.swing.JComboBox<Pergunta> escolhaDaPerguntaComboBox;
   private javax.swing.JPanel fundoTelaRemoverPerguntas;
   private javax.swing.JTextField perguntaTextField;
   private javax.swing.JButton removerPerguntaButton;

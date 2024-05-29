@@ -27,6 +27,11 @@ public class Pergunta
     this.idAltErrada3 = idAltErrada3;
     this.idCriador = idCriador;
   }
+  
+  public Pergunta(int id)
+  {
+    this.id = id;
+  }
 
   public int getId() {
     return id;
@@ -84,5 +89,9 @@ public class Pergunta
     this.idCriador = idCriador;
   }
   
-  
+  @Override
+  public String toString()
+  {
+    return this.enunciado;
+  }
 }

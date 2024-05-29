@@ -64,4 +64,24 @@ public class AlternativaDAO
       }
     }
   }
+  
+  public String textById(int id) throws Exception
+  {
+    String sql = "SELECT textoAlternativa FROM alternativa WHERE idAlternativa = ?";
+    
+    try(
+      var conexao = new ConnectionFactory().obterConexao();
+      var ps = conexao.prepareStatement(sql);
+    ){
+      ps.setInt(1, id);
+      
+      try(
+        var rs = ps.executeQuery()
+      ){
+        rs.next();
+        String texto = rs.getString("textoAlternativa");
+        return texto;
+      }
+    }
+  }
 }
