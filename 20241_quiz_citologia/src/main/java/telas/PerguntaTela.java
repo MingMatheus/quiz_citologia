@@ -4,11 +4,23 @@
  */
 package telas;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import modelo.Alternativa;
+import modelo.Jogador;
+import modelo.PerguntaCompleta;
+
 /**
  *
  * @author Matheus
  */
 public class PerguntaTela extends javax.swing.JFrame {
+  public static final int MAX_PERGUNTAS_POR_PARTIDA = 10;
+  private Jogador jogador;
+  private int numeroDaPergunta;
+  private PerguntaCompleta [] perguntas;
 
   /**
    * Creates new form PerguntaTela
@@ -16,6 +28,17 @@ public class PerguntaTela extends javax.swing.JFrame {
   public PerguntaTela() {
     initComponents();
     setLocationRelativeTo(null);
+  }
+  
+  public PerguntaTela(Jogador jogador, int numeroDaPergunta, PerguntaCompleta [] perguntas) {
+    initComponents();
+    setLocationRelativeTo(null);
+    
+    this.jogador = jogador;
+    this.numeroDaPergunta = numeroDaPergunta;
+    this.perguntas = perguntas;
+    
+    preencheCampos();
   }
 
   /**
@@ -33,12 +56,11 @@ public class PerguntaTela extends javax.swing.JFrame {
     alt3Button = new javax.swing.JButton();
     alt4Button = new javax.swing.JButton();
     alt1Button = new javax.swing.JButton();
-    jTextField1 = new javax.swing.JTextField();
+    numeroDaPerguntaTextField = new javax.swing.JTextField();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMaximumSize(new java.awt.Dimension(1280, 720));
     setMinimumSize(new java.awt.Dimension(1280, 720));
-    setPreferredSize(new java.awt.Dimension(1280, 720));
     setResizable(false);
     setSize(new java.awt.Dimension(1280, 720));
 
@@ -60,6 +82,11 @@ public class PerguntaTela extends javax.swing.JFrame {
     alt2Button.setMaximumSize(new java.awt.Dimension(270, 120));
     alt2Button.setMinimumSize(new java.awt.Dimension(270, 120));
     alt2Button.setPreferredSize(new java.awt.Dimension(270, 120));
+    alt2Button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        alt2ButtonActionPerformed(evt);
+      }
+    });
 
     alt3Button.setBackground(new java.awt.Color(80, 80, 80));
     alt3Button.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -68,6 +95,11 @@ public class PerguntaTela extends javax.swing.JFrame {
     alt3Button.setMaximumSize(new java.awt.Dimension(270, 120));
     alt3Button.setMinimumSize(new java.awt.Dimension(270, 120));
     alt3Button.setPreferredSize(new java.awt.Dimension(270, 120));
+    alt3Button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        alt3ButtonActionPerformed(evt);
+      }
+    });
 
     alt4Button.setBackground(new java.awt.Color(80, 80, 80));
     alt4Button.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -76,6 +108,11 @@ public class PerguntaTela extends javax.swing.JFrame {
     alt4Button.setMaximumSize(new java.awt.Dimension(270, 120));
     alt4Button.setMinimumSize(new java.awt.Dimension(270, 120));
     alt4Button.setPreferredSize(new java.awt.Dimension(270, 120));
+    alt4Button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        alt4ButtonActionPerformed(evt);
+      }
+    });
 
     alt1Button.setBackground(new java.awt.Color(80, 80, 80));
     alt1Button.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -84,17 +121,23 @@ public class PerguntaTela extends javax.swing.JFrame {
     alt1Button.setMaximumSize(new java.awt.Dimension(270, 120));
     alt1Button.setMinimumSize(new java.awt.Dimension(270, 120));
     alt1Button.setPreferredSize(new java.awt.Dimension(270, 120));
+    alt1Button.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        alt1ButtonActionPerformed(evt);
+      }
+    });
 
-    jTextField1.setEditable(false);
-    jTextField1.setBackground(new java.awt.Color(140, 140, 140));
-    jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-    jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-    jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-    jTextField1.setText("13");
-    jTextField1.setBorder(null);
-    jTextField1.setMaximumSize(new java.awt.Dimension(70, 70));
-    jTextField1.setMinimumSize(new java.awt.Dimension(70, 70));
-    jTextField1.setPreferredSize(new java.awt.Dimension(70, 70));
+    numeroDaPerguntaTextField.setEditable(false);
+    numeroDaPerguntaTextField.setBackground(new java.awt.Color(140, 140, 140));
+    numeroDaPerguntaTextField.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+    numeroDaPerguntaTextField.setForeground(new java.awt.Color(255, 255, 255));
+    numeroDaPerguntaTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+    numeroDaPerguntaTextField.setText("13");
+    numeroDaPerguntaTextField.setBorder(null);
+    numeroDaPerguntaTextField.setFocusable(false);
+    numeroDaPerguntaTextField.setMaximumSize(new java.awt.Dimension(70, 70));
+    numeroDaPerguntaTextField.setMinimumSize(new java.awt.Dimension(70, 70));
+    numeroDaPerguntaTextField.setPreferredSize(new java.awt.Dimension(70, 70));
 
     javax.swing.GroupLayout fundoTelaPerguntaPanelLayout = new javax.swing.GroupLayout(fundoTelaPerguntaPanel);
     fundoTelaPerguntaPanel.setLayout(fundoTelaPerguntaPanelLayout);
@@ -114,14 +157,14 @@ public class PerguntaTela extends javax.swing.JFrame {
               .addComponent(alt4Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
           .addGroup(fundoTelaPerguntaPanelLayout.createSequentialGroup()
             .addGap(21, 21, 21)
-            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(numeroDaPerguntaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(290, Short.MAX_VALUE))
     );
     fundoTelaPerguntaPanelLayout.setVerticalGroup(
       fundoTelaPerguntaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(fundoTelaPerguntaPanelLayout.createSequentialGroup()
         .addGap(18, 18, 18)
-        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(numeroDaPerguntaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(enunciadoLabel)
         .addGap(120, 120, 120)
@@ -152,6 +195,107 @@ public class PerguntaTela extends javax.swing.JFrame {
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
+
+  private JButton [] getBotoesAlternativas()
+  {
+    var botoes = new JButton [4];
+    
+    botoes[0] = alt1Button;
+    botoes[1] = alt2Button;
+    botoes[2] = alt3Button;
+    botoes[3] = alt4Button;
+    
+    return botoes;
+  }
+  
+  private void preencheCampos()
+  {
+    // Coloca o número da pergunta
+    numeroDaPerguntaTextField.setText(String.format("%d", numeroDaPergunta));
+    
+    // Seleciona a pergunta
+    var p = perguntas[numeroDaPergunta - 1];
+    
+    // Coloca o enunciado
+    enunciadoLabel.setText(p.getEnunciado());
+    
+    // Cria uma lista com os botões das alternativas
+    var botoes = new ArrayList<JButton>();
+    Collections.addAll(botoes, getBotoesAlternativas());
+    
+    // Cria uma lista com as alternativas e aleatoriza a ordem delas
+    var alternativas = new ArrayList<Alternativa>();
+    Collections.addAll(alternativas, p.getAlternativas());
+    Collections.shuffle(alternativas);
+    
+    // Atribui o texto das alternativas aos botões
+    for (int i = 0; i < 4; i++)
+    {
+      var botao = botoes.get(i);
+      var alt = alternativas.get(i);
+      botao.setText(alt.getTexto());
+    }
+  }
+  
+  private void passarParaProximaPergunta()
+  {
+    numeroDaPergunta++;
+    
+    if(numeroDaPergunta > MAX_PERGUNTAS_POR_PARTIDA)
+    {
+      var tpf = new PontuacaoFinalTela(jogador);
+      tpf.setVisible(true);
+      this.dispose();
+    }
+    else
+    {
+      // Continua em outra tela
+      var tp = new PerguntaTela(jogador, numeroDaPergunta, perguntas);
+      tp.setVisible(true);
+      this.dispose();
+
+      // Continua na mesma tela
+      // preencheCampos();
+    }
+  }
+  
+  private void lidarComEscolhaDeAlternativa(String escolha)
+  {
+    var p = perguntas[numeroDaPergunta - 1];
+    String resposta = p.getAltCerta().getTexto();
+    
+    if(escolha.equals(resposta))
+    {
+      JOptionPane.showMessageDialog(null, "Boa! Você acertou a resposta\n+1 ponto pra você", "Acertou!", 1);
+      jogador.ganhaUmPonto();
+    }
+    else
+    {
+      JOptionPane.showMessageDialog(null, "Que pena! Você errou a resposta", "Errou!", 0);
+    }
+    
+    passarParaProximaPergunta();
+  }
+  
+  private void alt1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt1ButtonActionPerformed
+    String escolha = alt1Button.getText();
+    lidarComEscolhaDeAlternativa(escolha);
+  }//GEN-LAST:event_alt1ButtonActionPerformed
+
+  private void alt2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt2ButtonActionPerformed
+    String escolha = alt2Button.getText();
+    lidarComEscolhaDeAlternativa(escolha);
+  }//GEN-LAST:event_alt2ButtonActionPerformed
+
+  private void alt3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt3ButtonActionPerformed
+    String escolha = alt3Button.getText();
+    lidarComEscolhaDeAlternativa(escolha);
+  }//GEN-LAST:event_alt3ButtonActionPerformed
+
+  private void alt4ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt4ButtonActionPerformed
+    String escolha = alt4Button.getText();
+    lidarComEscolhaDeAlternativa(escolha);
+  }//GEN-LAST:event_alt4ButtonActionPerformed
 
   /**
    * @param args the command line arguments
@@ -195,6 +339,6 @@ public class PerguntaTela extends javax.swing.JFrame {
   private javax.swing.JButton alt4Button;
   private javax.swing.JLabel enunciadoLabel;
   private javax.swing.JPanel fundoTelaPerguntaPanel;
-  private javax.swing.JTextField jTextField1;
+  private javax.swing.JTextField numeroDaPerguntaTextField;
   // End of variables declaration//GEN-END:variables
 }

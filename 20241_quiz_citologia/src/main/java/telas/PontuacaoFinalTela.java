@@ -4,11 +4,15 @@
  */
 package telas;
 
+import modelo.Jogador;
+import static telas.PerguntaTela.MAX_PERGUNTAS_POR_PARTIDA;
+
 /**
  *
  * @author Matheus
  */
 public class PontuacaoFinalTela extends javax.swing.JFrame {
+  private Jogador jogador;
 
   /**
    * Creates new form PontuacaoFinalTela
@@ -16,6 +20,14 @@ public class PontuacaoFinalTela extends javax.swing.JFrame {
   public PontuacaoFinalTela() {
     initComponents();
     setLocationRelativeTo(null);
+  }
+  
+  public PontuacaoFinalTela(Jogador jogador) {
+    initComponents();
+    setLocationRelativeTo(null);
+    
+    this.jogador = jogador;
+    preenchePontuacao();
   }
 
   /**
@@ -54,6 +66,7 @@ public class PontuacaoFinalTela extends javax.swing.JFrame {
     pontuacaoFinalTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
     pontuacaoFinalTextField.setText("13/20");
     pontuacaoFinalTextField.setBorder(null);
+    pontuacaoFinalTextField.setFocusable(false);
     pontuacaoFinalTextField.setMaximumSize(new java.awt.Dimension(332, 150));
     pontuacaoFinalTextField.setMinimumSize(new java.awt.Dimension(332, 150));
     pontuacaoFinalTextField.setPreferredSize(new java.awt.Dimension(332, 150));
@@ -116,6 +129,12 @@ public class PontuacaoFinalTela extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void preenchePontuacao()
+  {
+    String pontuacao = String.format("%d/%d", jogador.getPontuacao(), MAX_PERGUNTAS_POR_PARTIDA);
+    pontuacaoFinalTextField.setText(pontuacao);
+  }
+  
   private void retornarAoMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarAoMenuButtonActionPerformed
     // TODO add your handling code here:
     var ti = new InicialTela();

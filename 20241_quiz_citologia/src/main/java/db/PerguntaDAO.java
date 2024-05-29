@@ -6,6 +6,7 @@ package db;
 
 import java.sql.ResultSet;
 import modelo.Pergunta;
+import static telas.PerguntaTela.MAX_PERGUNTAS_POR_PARTIDA;
 
 /**
  *
@@ -79,6 +80,21 @@ public class PerguntaDAO
       ps.setInt(1, p.getId());
       
       ps.execute();
+    }
+  }
+  
+  public int numeroDePerguntas() throws Exception
+  {
+    String sql = "SELECT COUNT(*) FROM pergunta";
+    
+    try(
+      var conexao = new ConnectionFactory().obterConexao();
+      var ps = conexao.prepareStatement(sql);
+      var rs = ps.executeQuery();
+    ){
+      rs.next();
+      int totalDePerguntas = rs.getInt(1);
+      return totalDePerguntas;
     }
   }
 }

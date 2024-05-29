@@ -4,6 +4,12 @@
  */
 package telas;
 
+import db.PerguntaCompletaDAO;
+import db.PerguntaDAO;
+import javax.swing.JOptionPane;
+import modelo.Jogador;
+import static telas.PerguntaTela.MAX_PERGUNTAS_POR_PARTIDA;
+
 /**
  *
  * @author Matheus
@@ -62,6 +68,11 @@ public class EscolhaDoNomeTela extends javax.swing.JFrame {
     confirmarButton.setBackground(new java.awt.Color(51, 51, 51));
     confirmarButton.setForeground(new java.awt.Color(255, 255, 255));
     confirmarButton.setText("Confirmar");
+    confirmarButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        confirmarButtonActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout retanguloBaseEscolhaNomePanelLayout = new javax.swing.GroupLayout(retanguloBaseEscolhaNomePanel);
     retanguloBaseEscolhaNomePanel.setLayout(retanguloBaseEscolhaNomePanelLayout);
@@ -150,6 +161,37 @@ public class EscolhaDoNomeTela extends javax.swing.JFrame {
     ti.setVisible(true);
     this.dispose();
   }//GEN-LAST:event_voltarButtonActionPerformed
+
+  private void confirmarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarButtonActionPerformed
+    String nomeDeJogo = escolhaDoNomeTextField.getText();
+    if(nomeDeJogo.isEmpty())
+      JOptionPane.showMessageDialog(null, "Escolha um nome de jogo", "Erro", 0);
+    else
+    {
+      try
+      {
+        var dao = new PerguntaDAO();
+        if(dao.numeroDePerguntas() < MAX_PERGUNTAS_POR_PARTIDA)
+        {
+          JOptionPane.showMessageDialog(null, "Não há perguntas cadastradas o suficiente para jogar", "Erro", 0);
+        }
+        else
+        {
+          var dao2 = new PerguntaCompletaDAO();
+          var perguntas = dao2.obterPerguntasParaJogar();
+          var j = new Jogador(nomeDeJogo);
+          var tp = new PerguntaTela(j, 1, perguntas);
+          tp.setVisible(true);
+          this.dispose();
+        }
+      }
+      catch(Exception e)
+      {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Tente novamente mais tarde");
+      }
+    }
+  }//GEN-LAST:event_confirmarButtonActionPerformed
 
   /**
    * @param args the command line arguments
