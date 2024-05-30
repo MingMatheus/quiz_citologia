@@ -4,10 +4,16 @@
  */
 package telas;
 
+import db.JogadorDAO;
+import elementos_visuais_personalizados.MeuTableCellRenderer;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import modelo.Jogador;
 
 /**
  *
@@ -21,6 +27,8 @@ public class RankingTela extends javax.swing.JFrame {
   public RankingTela() {
     initComponents();
     setLocationRelativeTo(null);
+    preencheTabelaRanking();
+    ajustaTabela();
   }
 
   /**
@@ -36,22 +44,6 @@ public class RankingTela extends javax.swing.JFrame {
     tituloRankingLabel = new javax.swing.JLabel();
     tabelaRankingScrollPane = new javax.swing.JScrollPane();
     tabelaRankingTable = new javax.swing.JTable();
-
-    // Início do meu código --------------------
-    // Centraliza os títulos das colunas
-    JTableHeader header = tabelaRankingTable.getTableHeader();
-    DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
-    headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-    // Centraliza o conteúdo das colunas
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-    tabelaRankingTable.setDefaultRenderer(Object.class, centerRenderer);
-
-    // Isso faz com que o usuário não possa alterar a tabela
-    tabelaRankingTable.setDefaultEditor(Object.class, null);
-
-    // Fim do meu código -------------
     retornarAoMenuButton = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,33 +63,28 @@ public class RankingTela extends javax.swing.JFrame {
     tituloRankingLabel.setText("RANKING");
 
     tabelaRankingTable.setBackground(new java.awt.Color(45, 45, 45));
-    tabelaRankingTable.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
+    tabelaRankingTable.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
     tabelaRankingTable.setForeground(new java.awt.Color(255, 255, 255));
     tabelaRankingTable.setModel(new javax.swing.table.DefaultTableModel(
       new Object [][] {
-        { new Integer(1), "nome1",  new Integer(20)},
-        { new Integer(2), "nome2",  new Integer(19)},
-        { new Integer(3), "nome3",  new Integer(18)},
-        { new Integer(4), "nome4",  new Integer(17)},
-        { new Integer(5), "nome5",  new Integer(17)},
-        { new Integer(6), "nome6",  new Integer(15)},
-        { new Integer(7), "nome7",  new Integer(12)},
-        { new Integer(8), "nome8",  new Integer(11)},
-        { new Integer(9), "nome9",  new Integer(8)},
-        { new Integer(10), "nome10",  new Integer(5)}
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
       },
       new String [] {
-        "Ranque", "Nome", "Pontuação"
-      }
-    ) {
-      Class[] types = new Class [] {
-        java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
-      };
 
-      public Class getColumnClass(int columnIndex) {
-        return types [columnIndex];
       }
-    });
+    ));
+    tabelaRankingTable.setFocusable(false);
+    tabelaRankingTable.setMaximumSize(new java.awt.Dimension(225, 300));
+    tabelaRankingTable.setMinimumSize(new java.awt.Dimension(225, 300));
     tabelaRankingTable.setRowHeight(30);
     tabelaRankingScrollPane.setViewportView(tabelaRankingTable);
 
@@ -159,6 +146,88 @@ public class RankingTela extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void preencheTabelaRanking()
+  {
+    try
+    {
+      var dao = new JogadorDAO();
+      var melhoresJogadores = dao.obterMelhoresJogadores();
+      
+      var model = new DefaultTableModel();
+      
+      model.addColumn("Ranque");
+      model.addColumn("Nome");
+      model.addColumn("Pontuação");
+      
+      int contador = 1;
+      for (Jogador jogador : melhoresJogadores)
+      {
+        if(jogador != null)
+        {
+          int ranque = contador;
+          String nome = jogador.getNomeDeJogo();
+          int pontuacao = jogador.getPontuacao();
+
+          model.addRow(new Object[] {ranque, nome, pontuacao});
+
+          contador++;
+        }
+      }
+      
+      while(contador <= 10)
+      {
+        model.addRow(new Object[] {contador, "", ""});
+        contador++;
+      }
+      
+      tabelaRankingTable.setModel(model);
+    }
+    catch(Exception e)
+    {
+      e.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Tente novamente mais tarde");
+    }
+  }
+  
+  private void setMeuTableCellRenderer()
+  {
+    TableCellRenderer renderer = new MeuTableCellRenderer();
+    for (int i = 0; i < tabelaRankingTable.getColumnCount(); i++)
+    {
+      tabelaRankingTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
+    }
+  }
+  
+  private void ajustaLarguraColunas()
+  {
+    var coluna1 = tabelaRankingTable.getColumnModel().getColumn(0);
+    coluna1.setPreferredWidth(20);
+    var coluna2 = tabelaRankingTable.getColumnModel().getColumn(1);
+    coluna2.setPreferredWidth(255);
+    var coluna3 = tabelaRankingTable.getColumnModel().getColumn(2);
+    coluna3.setPreferredWidth(25);
+  }
+  
+  private void centralizaTituloDasColunas()
+  {
+    JTableHeader header = tabelaRankingTable.getTableHeader();
+    DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+    headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+  }
+  
+  private void impedeEdicaoDaTabela()
+  {
+    tabelaRankingTable.setDefaultEditor(Object.class, null);
+  }
+  
+  private void ajustaTabela()
+  {
+    setMeuTableCellRenderer();
+    ajustaLarguraColunas();
+    centralizaTituloDasColunas();
+    impedeEdicaoDaTabela();
+  }
+  
   private void retornarAoMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retornarAoMenuButtonActionPerformed
     // TODO add your handling code here:
     var ti = new InicialTela();

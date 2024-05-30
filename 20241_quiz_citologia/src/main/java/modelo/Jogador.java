@@ -19,6 +19,12 @@ public class Jogador
     this.nomeDeJogo = nomeDeJogo;
     this.pontuacao = 0;
   }
+  
+  public Jogador(String nomeDeJogo, int pontuacao)
+  {
+    this.nomeDeJogo = nomeDeJogo;
+    this.pontuacao = pontuacao;
+  }
 
   public int getId() {
     return id;

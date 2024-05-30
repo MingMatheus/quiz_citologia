@@ -124,50 +124,13 @@
                   <Color blue="2d" green="2d" red="2d" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="25" style="0"/>
+                  <Font name="Segoe UI" size="22" style="0"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="10">
-                    <Column editable="true" title="Ranque" type="java.lang.Integer">
-                      <Data value="1"/>
-                      <Data value="2"/>
-                      <Data value="3"/>
-                      <Data value="4"/>
-                      <Data value="5"/>
-                      <Data value="6"/>
-                      <Data value="7"/>
-                      <Data value="8"/>
-                      <Data value="9"/>
-                      <Data value="10"/>
-                    </Column>
-                    <Column editable="true" title="Nome" type="java.lang.String">
-                      <Data value="nome1"/>
-                      <Data value="nome2"/>
-                      <Data value="nome3"/>
-                      <Data value="nome4"/>
-                      <Data value="nome5"/>
-                      <Data value="nome6"/>
-                      <Data value="nome7"/>
-                      <Data value="nome8"/>
-                      <Data value="nome9"/>
-                      <Data value="nome10"/>
-                    </Column>
-                    <Column editable="true" title="Pontua&#xe7;&#xe3;o" type="java.lang.Integer">
-                      <Data value="20"/>
-                      <Data value="19"/>
-                      <Data value="18"/>
-                      <Data value="17"/>
-                      <Data value="17"/>
-                      <Data value="15"/>
-                      <Data value="12"/>
-                      <Data value="11"/>
-                      <Data value="8"/>
-                      <Data value="5"/>
-                    </Column>
-                  </Table>
+                  <Table columnCount="0" rowCount="10"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
@@ -188,14 +151,18 @@
                     </Column>
                   </TableColumnModel>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[225, 300]"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[225, 300]"/>
+                </Property>
                 <Property name="rowHeight" type="int" value="30"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="&#xd;&#xa;// In&#xed;cio do meu c&#xf3;digo --------------------&#xd;&#xa;// Centraliza os t&#xed;tulos das colunas&#xd;&#xa;JTableHeader header = tabelaRankingTable.getTableHeader();&#xd;&#xa;DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();&#xd;&#xa;headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);&#xd;&#xa;&#xd;&#xa;// Centraliza o conte&#xfa;do das colunas&#xd;&#xa;DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();&#xd;&#xa;centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);&#xd;&#xa;tabelaRankingTable.setDefaultRenderer(Object.class, centerRenderer);&#xd;&#xa;&#xd;&#xa;// Isso faz com que o usu&#xe1;rio n&#xe3;o possa alterar a tabela&#xd;&#xa;tabelaRankingTable.setDefaultEditor(Object.class, null);&#xd;&#xa;&#xd;&#xa;// Fim do meu c&#xf3;digo -------------"/>
-              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

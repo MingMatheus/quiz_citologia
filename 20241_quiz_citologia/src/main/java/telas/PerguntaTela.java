@@ -254,13 +254,7 @@ public class PerguntaTela extends javax.swing.JFrame {
       }
       else
       {
-        // Continua em outra tela
-        var tp = new PerguntaTela(jogador, numeroDaPergunta, perguntas);
-        tp.setVisible(true);
-        this.dispose();
-
-        // Continua na mesma tela
-        // preencheCampos();
+        preencheCampos();
       }
     }
     catch(Exception e)
@@ -283,7 +277,7 @@ public class PerguntaTela extends javax.swing.JFrame {
     }
     else
     {
-      JOptionPane.showMessageDialog(null, "Que pena! Você errou a resposta", "Errou!", 0);
+      JOptionPane.showMessageDialog(null, "Que pena! Você errou a resposta\nA resposta certa era: " + resposta, "Errou!", 0);
     }
     
     passarParaProximaPergunta();

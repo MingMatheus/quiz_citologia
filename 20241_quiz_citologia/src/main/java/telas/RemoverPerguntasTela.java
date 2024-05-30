@@ -86,6 +86,7 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
     perguntaTextField.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
     perguntaTextField.setForeground(new java.awt.Color(255, 255, 255));
     perguntaTextField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Pergunta:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
+    perguntaTextField.setFocusable(false);
     perguntaTextField.setMaximumSize(new java.awt.Dimension(630, 64));
     perguntaTextField.setMinimumSize(new java.awt.Dimension(630, 64));
     perguntaTextField.setPreferredSize(new java.awt.Dimension(630, 64));
@@ -95,6 +96,7 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
     respostaCertaTextField.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
     respostaCertaTextField.setForeground(new java.awt.Color(255, 255, 255));
     respostaCertaTextField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Resposta certa:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
+    respostaCertaTextField.setFocusable(false);
     respostaCertaTextField.setMaximumSize(new java.awt.Dimension(290, 64));
     respostaCertaTextField.setMinimumSize(new java.awt.Dimension(290, 64));
     respostaCertaTextField.setPreferredSize(new java.awt.Dimension(290, 64));
@@ -104,6 +106,7 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
     respostaErrada1TextField.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
     respostaErrada1TextField.setForeground(new java.awt.Color(255, 255, 255));
     respostaErrada1TextField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Resposta Errada:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
+    respostaErrada1TextField.setFocusable(false);
     respostaErrada1TextField.setMaximumSize(new java.awt.Dimension(290, 64));
     respostaErrada1TextField.setMinimumSize(new java.awt.Dimension(290, 64));
     respostaErrada1TextField.setPreferredSize(new java.awt.Dimension(290, 64));
@@ -113,6 +116,7 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
     respostaErrada2TextField.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
     respostaErrada2TextField.setForeground(new java.awt.Color(255, 255, 255));
     respostaErrada2TextField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Resposta Errada:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
+    respostaErrada2TextField.setFocusable(false);
     respostaErrada2TextField.setMaximumSize(new java.awt.Dimension(290, 64));
     respostaErrada2TextField.setMinimumSize(new java.awt.Dimension(290, 64));
     respostaErrada2TextField.setPreferredSize(new java.awt.Dimension(290, 64));
@@ -122,6 +126,7 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
     respostaErrada3TextField.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
     respostaErrada3TextField.setForeground(new java.awt.Color(255, 255, 255));
     respostaErrada3TextField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Resposta Errada:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 15), new java.awt.Color(255, 255, 255))); // NOI18N
+    respostaErrada3TextField.setFocusable(false);
     respostaErrada3TextField.setMaximumSize(new java.awt.Dimension(290, 64));
     respostaErrada3TextField.setMinimumSize(new java.awt.Dimension(290, 64));
     respostaErrada3TextField.setPreferredSize(new java.awt.Dimension(290, 64));

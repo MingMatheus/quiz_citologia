@@ -25,4 +25,28 @@ public class JogadorDAO
       ps.execute();
     }
   }
+  
+  public Jogador [] obterMelhoresJogadores() throws Exception
+  {
+    String sql = "SELECT nomeDeJogo, pontuacao FROM jogador ORDER BY pontuacao DESC LIMIT 10";
+    try(
+      var conexao = new ConnectionFactory().obterConexao();
+      var ps = conexao.prepareStatement(sql);
+      var rs = ps.executeQuery();
+    ){
+      var melhoresJogadores = new Jogador[10];
+      int contador = 0;
+      
+      while(rs.next())
+      {
+        String nome = rs.getString("nomeDeJogo");
+        int pontuacao = rs.getInt("pontuacao");
+        var j = new Jogador(nome, pontuacao);
+        melhoresJogadores[contador] = j;
+        contador++;
+      }
+      
+      return melhoresJogadores;
+    }
+  }
 }
