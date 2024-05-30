@@ -6,7 +6,6 @@ package db;
 
 import java.sql.ResultSet;
 import modelo.Pergunta;
-import static telas.PerguntaTela.MAX_PERGUNTAS_POR_PARTIDA;
 
 /**
  *
