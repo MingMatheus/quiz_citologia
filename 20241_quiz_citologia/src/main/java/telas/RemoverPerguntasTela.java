@@ -286,7 +286,7 @@ public class RemoverPerguntasTela extends javax.swing.JFrame {
     var p = (Pergunta) escolhaDaPerguntaComboBox.getSelectedItem();
     if(p == null)
     {
-      JOptionPane.showMessageDialog(null, "Selecione um pergunta primeiro", "Erro", 0);
+      JOptionPane.showMessageDialog(null, "Selecione uma pergunta primeiro", "Erro", 0);
     }
     else
     {  
