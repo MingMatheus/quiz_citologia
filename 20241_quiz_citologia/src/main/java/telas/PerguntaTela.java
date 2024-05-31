@@ -167,8 +167,8 @@ public class PerguntaTela extends javax.swing.JFrame {
         .addGap(18, 18, 18)
         .addComponent(numeroDaPerguntaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
-        .addComponent(enunciadoLabel)
-        .addGap(120, 120, 120)
+        .addComponent(enunciadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(54, 54, 54)
         .addGroup(fundoTelaPerguntaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(alt2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(alt1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -218,7 +218,8 @@ public class PerguntaTela extends javax.swing.JFrame {
     var p = perguntas[numeroDaPergunta - 1];
     
     // Coloca o enunciado
-    enunciadoLabel.setText(p.getEnunciado());
+    String enunciado = String.format("<html><div style='text-align: center;'>%s</div></html>", p.getEnunciado().replaceAll("\n", "<br>"));
+    enunciadoLabel.setText(enunciado);
     
     // Cria uma lista com os botões das alternativas
     var botoes = new ArrayList<JButton>();
@@ -234,7 +235,8 @@ public class PerguntaTela extends javax.swing.JFrame {
     {
       var botao = botoes.get(i);
       var alt = alternativas.get(i);
-      botao.setText(alt.getTexto());
+      String altText = String.format("<html><div style='text-align: center;'>%s</div></html>", alt.getTexto().replaceAll("\n", "<br>"));
+      botao.setText(altText);
     }
   }
   
