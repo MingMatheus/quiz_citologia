@@ -22,6 +22,7 @@ public class PerguntaTela extends javax.swing.JFrame {
   private Jogador jogador;
   private int numeroDaPergunta;
   private PerguntaCompleta [] perguntas;
+  private String[] alternativasNosBotoes;
 
   /**
    * Creates new form PerguntaTela
@@ -230,11 +231,15 @@ public class PerguntaTela extends javax.swing.JFrame {
     Collections.addAll(alternativas, p.getAlternativas());
     Collections.shuffle(alternativas);
     
+    // Cria um array de 4 elementos para guardar os textos de cada botão
+    this.alternativasNosBotoes = new String[4];
+    
     // Atribui o texto das alternativas aos botões
     for (int i = 0; i < 4; i++)
     {
       var botao = botoes.get(i);
       var alt = alternativas.get(i);
+      this.alternativasNosBotoes[i] = alt.getTexto();
       String altText = String.format("<html><div style='text-align: center;'>%s</div></html>", alt.getTexto().replaceAll("\n", "<br>"));
       botao.setText(altText);
     }
@@ -286,22 +291,22 @@ public class PerguntaTela extends javax.swing.JFrame {
   }
   
   private void alt1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt1ButtonActionPerformed
-    String escolha = alt1Button.getText();
+    String escolha = this.alternativasNosBotoes[0];
     lidarComEscolhaDeAlternativa(escolha);
   }//GEN-LAST:event_alt1ButtonActionPerformed
 
   private void alt2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt2ButtonActionPerformed
-    String escolha = alt2Button.getText();
+    String escolha = this.alternativasNosBotoes[1];
     lidarComEscolhaDeAlternativa(escolha);
   }//GEN-LAST:event_alt2ButtonActionPerformed
 
   private void alt3ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt3ButtonActionPerformed
-    String escolha = alt3Button.getText();
+    String escolha = this.alternativasNosBotoes[2];
     lidarComEscolhaDeAlternativa(escolha);
   }//GEN-LAST:event_alt3ButtonActionPerformed
 
   private void alt4ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alt4ButtonActionPerformed
-    String escolha = alt4Button.getText();
+    String escolha = this.alternativasNosBotoes[3];
     lidarComEscolhaDeAlternativa(escolha);
   }//GEN-LAST:event_alt4ButtonActionPerformed
 
